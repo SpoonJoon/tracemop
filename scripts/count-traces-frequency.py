@@ -17,6 +17,21 @@ def generate(traces_dir):
                 continue
             id, _, trace = line.partition(' ')
             id_to_trace[id] = trace
+
+    # check if the specs-frequency.csv IO was completed
+    with open(os.path.join(traces_dir, 'specs-frequency.csv')) as f:
+        lines = f.readlines()
+        
+        last_line = None
+        for line in reversed(lines):
+            line = line.strip()
+            if line:
+                last_line = line
+                break
+        
+        if last_line != 'OK':
+            print('ERROR: specs-frequency.csv does not end with OK - file may be incomplete')
+    
     
     with open(os.path.join(traces_dir, 'specs-frequency.csv')) as f:
         for line in f.readlines():
@@ -36,7 +51,8 @@ def generate(traces_dir):
                 total_freq += int(freq)
             
             output.append('{} {} {}\n'.format(id, total_freq, id_to_trace[id]))
-    
+            output.append('OK\n')
+            
     # unique-traces.txt file format: trace-id trace-frequency trace
     with open(os.path.join(traces_dir, 'unique-traces.txt'), 'w') as f:
         f.writelines(output)
