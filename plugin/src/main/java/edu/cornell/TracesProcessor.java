@@ -136,6 +136,7 @@ public class TracesProcessor {
         for (String line : output) {
             writer.println(line);
         }
+        writer.println("OK");
         writer.close();
     }
 }
