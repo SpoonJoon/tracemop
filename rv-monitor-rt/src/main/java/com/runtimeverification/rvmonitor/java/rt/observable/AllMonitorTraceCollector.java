@@ -58,6 +58,7 @@ public class AllMonitorTraceCollector extends MonitorTraceCollector {
             for (Map.Entry<String, Integer> location : locations) {
                 locationMapWriter.println(location.getValue() + " " + location.getKey());
             }
+            locationMapWriter.println("OK");
             locationMapWriter.close();
             locationMapWriter.flush();
         } catch (Exception ex) {
@@ -68,12 +69,14 @@ public class AllMonitorTraceCollector extends MonitorTraceCollector {
     private void processTracesWithoutAnalysis() {
         this.writer.println("=== END OF TRACE ===");
         this.writer.println("Total number of traces: " + traceDB.size());
+        this.writer.println("OK");
     }
 
     private void processTracesWithAnalysis() {
         this.writer.println("=== END OF TRACE ===");
         this.writer.println("Total number of traces: " + traceDB.size());
         this.writer.println("Total number of unique traces: " + traceDB.uniqueTraces());
+        this.writer.println("OK");
     }
 
     private void printError(String message) {
