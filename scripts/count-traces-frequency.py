@@ -51,8 +51,8 @@ def generate(traces_dir):
                 total_freq += int(freq)
             
             output.append('{} {} {}\n'.format(id, total_freq, id_to_trace[id]))
-            output.append('OK\n')
-            
+        output.append('OK\n')
+
     # unique-traces.txt file format: trace-id trace-frequency trace
     with open(os.path.join(traces_dir, 'unique-traces.txt'), 'w') as f:
         f.writelines(output)
